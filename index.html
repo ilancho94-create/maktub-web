@@ -678,12 +678,12 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
     <button class="mob-drawer-close" onclick="closeMenu()">✕</button>
   </div>
   <nav class="mob-drawer-nav">
-    <a href="#ordering" onclick="closeMenu()" class="mob-drawer-cta">Order Now</a>
-    <a href="#menu" onclick="closeMenu()">Menu</a>
-    <a href="#hours" onclick="closeMenu()">Hours</a>
-    <a href="#contact" onclick="closeMenu()">Contact</a>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="#ordering" onclick="closeMenu()" class="mob-drawer-cta" data-i18n="nav_order_btn">Order Now</a>
+    <a href="#menu" onclick="closeMenu()" data-i18n="nav_menu">Menu</a>
+    <a href="#hours" onclick="closeMenu()" data-i18n="nav_hours">Hours</a>
+    <a href="#contact" onclick="closeMenu()" data-i18n="nav_contact">Contact</a>
+    <a href="#about" onclick="closeMenu()" data-i18n="nav_about">About</a>
+    <a href="#gallery" onclick="closeMenu()" data-i18n="nav_gallery">Gallery</a>
     <a href="https://www.instagram.com/maktub.arabiantacos" target="_blank" class="mob-drawer-ig">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
       Instagram · @maktub.arabiantacos
@@ -1807,11 +1807,12 @@ function showToast(msg, isError=false){
 
 // ── MOBILE LANG ──
 function mobileLang(lang){
-  setLang(lang);
-  // Visual feedback on buttons
+  // Update buttons immediately so user sees selection
   document.getElementById('mob-lang-en').classList.toggle('active', lang==='en');
   document.getElementById('mob-lang-es').classList.toggle('active', lang==='es');
-  showToast(lang==='en' ? '🇺🇸 English' : '🇲🇽 Español');
+  // Close drawer first, then apply language so user sees the page change
+  closeMenu();
+  setTimeout(function(){ setLang(lang); }, 320);
 }
 
 // ── NAV MOBILE DRAWER ──
@@ -1830,9 +1831,12 @@ function toggleMenu(){
   }
 }
 function closeMenu(){
-  document.getElementById('mobDrawer').classList.remove('open');
-  document.getElementById('mobOverlay').classList.remove('open');
+  const drawer  = document.getElementById('mobDrawer');
+  const overlay = document.getElementById('mobOverlay');
+  drawer.classList.remove('open');
+  overlay.classList.remove('open');
   document.body.style.overflow = '';
+  // Scroll to section after drawer closes
 }
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
@@ -1848,9 +1852,14 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 document.getElementById('footerCopy').addEventListener('click', handleFooterClick);
 
 // ── INIT ──
-// Apply English as default language on DOM load
 document.addEventListener('DOMContentLoaded', () => {
   setLang('en');
+  // Close drawer on any link click inside drawer
+  document.querySelectorAll('.mob-drawer-nav a, .mob-drawer-header a').forEach(a => {
+    a.addEventListener('click', () => {
+      setTimeout(closeMenu, 50);
+    });
+  });
 });
 loadSiteData();
 </script>
