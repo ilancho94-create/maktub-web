@@ -528,10 +528,16 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 /* ══ MOBILE DRAWER ══════════════════════════════ */
 .mob-menu-btn {
   display:none;
-  background:transparent; border:none; cursor:pointer;
-  padding:0.5rem; margin-right:0.2rem;
+  background:transparent;
+  border:1px solid rgba(200,146,42,0.35);
+  cursor:pointer;
+  padding:0.6rem 0.7rem;
+  margin-right:0;
   z-index:210; position:relative;
+  align-items:center; justify-content:center;
+  transition:border-color 0.2s;
 }
+.mob-menu-btn:hover { border-color:var(--gold); }
 .mob-drawer {
   display:none;
   position:fixed; top:0; right:0; bottom:0;
@@ -647,10 +653,10 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
     </li>
   </ul>
   <button class="mob-menu-btn" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
-      <line x1="0" y1="1" x2="20" y2="1" stroke="#c8922a" stroke-width="1.5"/>
-      <line x1="0" y1="7" x2="20" y2="7" stroke="#c8922a" stroke-width="1.5"/>
-      <line x1="0" y1="13" x2="20" y2="13" stroke="#c8922a" stroke-width="1.5"/>
+    <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+      <rect x="0" y="0" width="22" height="2" rx="1" fill="#c8922a"/>
+      <rect x="0" y="7" width="22" height="2" rx="1" fill="#c8922a"/>
+      <rect x="0" y="14" width="22" height="2" rx="1" fill="#c8922a"/>
     </svg>
   </button>
 </nav>
@@ -676,9 +682,9 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
     </a>
   </nav>
   <div class="mob-drawer-lang">
-    <button onclick="setLang('en');closeMenu()" id="mob-lang-en" class="mob-lang-btn active">EN</button>
+    <button onclick="setLang('en')" id="mob-lang-en" class="mob-lang-btn active">EN</button>
     <span style="color:rgba(200,146,42,0.3);font-size:0.8rem">|</span>
-    <button onclick="setLang('es');closeMenu()" id="mob-lang-es" class="mob-lang-btn">ES</button>
+    <button onclick="setLang('es')" id="mob-lang-es" class="mob-lang-btn">ES</button>
   </div>
 </div>
 <div class="mob-drawer-overlay" id="mobOverlay" onclick="closeMenu()"></div>
