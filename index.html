@@ -543,6 +543,8 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
   transform:translateX(100%);
   transition:transform 0.3s ease;
   overflow-y:auto;
+  /* logo at top, lang at bottom */
+  justify-content:flex-start;
 }
 .mob-drawer.open {
   transform:translateX(0);
@@ -570,7 +572,7 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 .mob-drawer-close:hover { border-color:var(--gold); color:var(--gold); }
 .mob-drawer-nav {
   display:flex; flex-direction:column;
-  padding:1rem 0; flex:1;
+  padding:1rem 0; flex:1; min-height:0;
 }
 .mob-drawer-nav a {
   display:block; padding:1rem 1.8rem;
@@ -595,7 +597,9 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 .mob-drawer-ig:hover { color:var(--gold) !important; }
 .mob-drawer-lang {
   display:flex; align-items:center; justify-content:center; gap:1rem;
-  padding:1.2rem; border-top:1px solid var(--border);
+  padding:1.2rem 1.5rem; border-top:1px solid var(--border);
+  position:sticky; bottom:0; background:var(--dark);
+  margin-top:auto;
 }
 .mob-lang-btn {
   background:transparent; border:none;
@@ -608,6 +612,8 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 @media(max-width:768px){
   .mob-menu-btn { display:flex; align-items:center; justify-content:center; }
   .hamburger { display:none !important; }
+  /* Hide desktop lang toggle on mobile — it lives in drawer instead */
+  .lang-toggle { display:none !important; }
   .mob-drawer { display:flex; }
   .mob-drawer-overlay { display:block; pointer-events:none; }
   .mob-drawer-overlay.open { pointer-events:all; }
@@ -652,7 +658,9 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 <!-- MOBILE DRAWER — completely separate from desktop nav -->
 <div class="mob-drawer" id="mobDrawer">
   <div class="mob-drawer-header">
-    <img src="https://raw.githubusercontent.com/ilancho94-create/maktub-web/main/logo.png" alt="Maktub" style="height:36px;filter:drop-shadow(0 0 10px rgba(200,146,42,0.3))">
+    <a href="#hero" onclick="closeMenu()" style="display:flex;align-items:center;">
+      <img src="https://raw.githubusercontent.com/ilancho94-create/maktub-web/main/logo.png" alt="Maktub" style="height:40px;filter:drop-shadow(0 0 12px rgba(200,146,42,0.4))">
+    </a>
     <button class="mob-drawer-close" onclick="closeMenu()">✕</button>
   </div>
   <nav class="mob-drawer-nav">
