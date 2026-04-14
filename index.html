@@ -128,8 +128,10 @@ nav.scrolled .nav-logo img { height:38px; }
 .menu-cat:last-child { border-right:none; }
 .menu-cat.active { background:var(--gold); color:var(--black); font-weight:500; }
 .menu-cat:hover:not(.active) { color:var(--gold2); }
+/* Desktop: show only active panel */
 .menu-panel { display:none; }
-.menu-panel.active { display:block; }
+.menu-panel.desktop-active { display:block; }
+/* Mobile: all panels shown as accordion (overridden in @media) */
 .menu-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px,1fr)); gap:0; border:1px solid var(--border); overflow:hidden; }
 .menu-card { background:var(--dark); padding:1.8rem; display:flex; gap:1.4rem; transition:background 0.3s; position:relative; border-bottom:1px solid var(--border); border-right:1px solid var(--border); }
 .menu-card:hover { background:#111008; }
@@ -340,7 +342,7 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
   nav.scrolled { height:50px; }
   .nav-logo img { height:34px; }
   nav.scrolled .nav-logo img { height:28px; }
-  .nav-links { display:none !important; }
+  .nav-links { display:none; }
   .nav-links.open {
     display:flex !important; flex-direction:column;
     position:fixed; top:0; left:0; right:0; bottom:0;
@@ -401,11 +403,11 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
   #menu { padding:3.5rem 0; }
   .menu-inner { padding:0; }
   .menu-header { padding:0 1.5rem; margin-bottom:1.5rem; text-align:center; }
-  /* Ocultar tabs, usar acordeón */
+  /* Accordion: hide desktop tabs, show all panels */
   .menu-cats { display:none !important; }
   .menu-panel { display:block !important; }
-  .menu-panel .menu-grid { display:none; }
-  .menu-panel.mob-open .menu-grid { display:block; }
+  .menu-panel .menu-grid { display:none !important; }
+  .menu-panel.mob-open .menu-grid { display:block !important; }
   /* Accordion header */
   .mob-cat-header {
     display:flex !important; align-items:center; justify-content:space-between;
@@ -1130,26 +1132,35 @@ function renderMenu(){
   if(!cats||!panels) return;
   cats.innerHTML=''; panels.innerHTML='';
   siteData.menu.forEach((cat,ci)=>{
+    // Desktop tab button
     const btn = document.createElement('button');
     btn.className='menu-cat'+(ci===0?' active':'');
     btn.textContent = currentLang==='en' ? cat.name_en : cat.name;
     btn.onclick=()=>{
       document.querySelectorAll('.menu-cat').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById('panel-'+cat.id).classList.add('active','mob-open');
+      // desktop: show/hide panels
+      document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('desktop-active'));
+      document.getElementById('panel-'+cat.id).classList.add('desktop-active');
     };
     cats.appendChild(btn);
 
+    // Panel — all visible in mobile accordion, only active visible on desktop
     const panel = document.createElement('div');
-    panel.className='menu-panel'+(ci===0?' mob-open':'');
+    panel.className='menu-panel'+(ci===0?' desktop-active':'');
     panel.id='panel-'+cat.id;
-    // Mobile accordion header
+
+    // Accordion header (visible only on mobile via CSS)
     const mobHeader = document.createElement('div');
     mobHeader.className='mob-cat-header';
-    mobHeader.innerHTML=`<span class="mob-cat-title">${currentLang==='en'?cat.name_en:cat.name}</span><span class="mob-cat-arrow">▾</span>`;
+    const catName = currentLang==='en' ? cat.name_en : cat.name;
+    mobHeader.innerHTML=`<span class="mob-cat-title">${catName}</span><span class="mob-cat-arrow">▾</span>`;
     mobHeader.onclick=()=>{ panel.classList.toggle('mob-open'); };
     panel.appendChild(mobHeader);
+
+    // Start first category open on mobile
+    if(ci===0) panel.classList.add('mob-open');
+
     const grid = document.createElement('div');
     grid.className='menu-grid';
     cat.items.forEach(item=>{
@@ -1651,18 +1662,31 @@ function showToast(msg, isError=false){
 
 // ── NAV ──
 function toggleMenu(){
-  const links=document.getElementById('navLinks');
-  const ham=document.getElementById('hamburger');
-  links.classList.toggle('open');
-  ham.classList.toggle('open');
-  document.body.style.overflow=links.classList.contains('open')?'hidden':'';
+  const links = document.getElementById('navLinks');
+  const ham   = document.getElementById('hamburger');
+  const isOpen = links.classList.contains('open');
+  if(isOpen){
+    links.classList.remove('open');
+    ham.classList.remove('open');
+    document.body.style.overflow = '';
+    links.style.display = '';
+  } else {
+    links.classList.add('open');
+    ham.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    links.style.display = 'flex';
+  }
 }
-document.querySelectorAll('.nav-links a').forEach(a=>{
-  a.addEventListener('click',()=>{
-    document.getElementById('navLinks').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-    document.body.style.overflow='';
-  });
+function closeMenu(){
+  const links = document.getElementById('navLinks');
+  const ham   = document.getElementById('hamburger');
+  links.classList.remove('open');
+  ham.classList.remove('open');
+  document.body.style.overflow = '';
+  links.style.display = '';
+}
+document.querySelectorAll('#navLinks a').forEach(a=>{
+  a.addEventListener('click', closeMenu);
 });
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
