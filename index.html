@@ -608,12 +608,17 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
   margin-top:auto;
 }
 .mob-lang-btn {
-  background:transparent; border:none;
-  font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em;
-  color:var(--muted); cursor:pointer; padding:0.3rem 0.6rem;
-  transition:color 0.2s;
+  background:transparent; border:1px solid transparent;
+  font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.2em;
+  color:var(--muted); cursor:pointer; padding:0.5rem 1rem;
+  transition:all 0.2s; border-radius:0;
 }
-.mob-lang-btn.active { color:var(--gold2); }
+.mob-lang-btn.active {
+  color:var(--black);
+  background:var(--gold);
+  border-color:var(--gold);
+}
+.mob-lang-btn:not(.active):hover { color:var(--cream); }
 
 @media(max-width:768px){
   .mob-menu-btn { display:flex; align-items:center; justify-content:center; }
@@ -664,8 +669,11 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 <!-- MOBILE DRAWER — completely separate from desktop nav -->
 <div class="mob-drawer" id="mobDrawer">
   <div class="mob-drawer-header">
-    <a href="#hero" onclick="closeMenu()" style="display:flex;align-items:center;">
-      <img src="https://raw.githubusercontent.com/ilancho94-create/maktub-web/main/logo.png" alt="Maktub" style="height:40px;filter:drop-shadow(0 0 12px rgba(200,146,42,0.4))">
+    <a href="#hero" onclick="closeMenu()" style="display:flex;align-items:center;gap:0.6rem;text-decoration:none;">
+      <img src="https://raw.githubusercontent.com/ilancho94-create/maktub-web/main/logo.png" alt="Maktub"
+        style="height:40px;filter:drop-shadow(0 0 12px rgba(200,146,42,0.4))"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span style="display:none;font-family:'Cinzel',serif;font-size:0.9rem;letter-spacing:0.2em;color:var(--gold)">MAKTUB</span>
     </a>
     <button class="mob-drawer-close" onclick="closeMenu()">✕</button>
   </div>
@@ -682,9 +690,9 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
     </a>
   </nav>
   <div class="mob-drawer-lang">
-    <button onclick="setLang('en')" id="mob-lang-en" class="mob-lang-btn active">EN</button>
+    <button onclick="mobileLang('en')" id="mob-lang-en" class="mob-lang-btn active">EN</button>
     <span style="color:rgba(200,146,42,0.3);font-size:0.8rem">|</span>
-    <button onclick="setLang('es')" id="mob-lang-es" class="mob-lang-btn">ES</button>
+    <button onclick="mobileLang('es')" id="mob-lang-es" class="mob-lang-btn">ES</button>
   </div>
 </div>
 <div class="mob-drawer-overlay" id="mobOverlay" onclick="closeMenu()"></div>
@@ -1795,6 +1803,15 @@ function showToast(msg, isError=false){
   clearTimeout(toastTimer);
   requestAnimationFrame(()=>{ el.classList.add('show'); });
   toastTimer=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// ── MOBILE LANG ──
+function mobileLang(lang){
+  setLang(lang);
+  // Visual feedback on buttons
+  document.getElementById('mob-lang-en').classList.toggle('active', lang==='en');
+  document.getElementById('mob-lang-es').classList.toggle('active', lang==='es');
+  showToast(lang==='en' ? '🇺🇸 English' : '🇲🇽 Español');
 }
 
 // ── NAV MOBILE DRAWER ──
