@@ -524,6 +524,94 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 @media(min-width:1400px){
   .menu-grid { grid-template-columns:repeat(3,1fr); }
 }
+
+/* ══ MOBILE DRAWER ══════════════════════════════ */
+.mob-menu-btn {
+  display:none;
+  background:transparent; border:none; cursor:pointer;
+  padding:0.5rem; margin-right:0.2rem;
+  z-index:210; position:relative;
+}
+.mob-drawer {
+  display:none;
+  position:fixed; top:0; right:0; bottom:0;
+  width:min(300px, 85vw);
+  background:var(--dark);
+  border-left:1px solid var(--border);
+  z-index:800;
+  flex-direction:column;
+  transform:translateX(100%);
+  transition:transform 0.3s ease;
+  overflow-y:auto;
+}
+.mob-drawer.open {
+  transform:translateX(0);
+}
+.mob-drawer-overlay {
+  display:none;
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.7);
+  z-index:799;
+  opacity:0; transition:opacity 0.3s;
+}
+.mob-drawer-overlay.open { opacity:1; }
+.mob-drawer-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.2rem 1.5rem;
+  border-bottom:1px solid var(--border);
+}
+.mob-drawer-close {
+  background:transparent; border:1px solid var(--border);
+  color:var(--muted); width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:0.85rem;
+  transition:all 0.2s;
+}
+.mob-drawer-close:hover { border-color:var(--gold); color:var(--gold); }
+.mob-drawer-nav {
+  display:flex; flex-direction:column;
+  padding:1rem 0; flex:1;
+}
+.mob-drawer-nav a {
+  display:block; padding:1rem 1.8rem;
+  color:var(--muted); text-decoration:none;
+  font-size:0.78rem; letter-spacing:0.25em; text-transform:uppercase;
+  border-bottom:1px solid rgba(200,146,42,0.07);
+  transition:all 0.2s;
+}
+.mob-drawer-nav a:hover, .mob-drawer-nav a:active { color:var(--gold); background:rgba(200,146,42,0.05); }
+.mob-drawer-cta {
+  background:var(--gold) !important; color:var(--black) !important;
+  font-weight:500 !important; text-align:center;
+  margin:1rem 1.5rem !important; padding:1rem !important;
+  border-bottom:none !important; letter-spacing:0.3em !important;
+}
+.mob-drawer-cta:hover { background:var(--gold2) !important; }
+.mob-drawer-ig {
+  display:flex !important; align-items:center; gap:0.8rem;
+  color:var(--gold3) !important; margin-top:0.5rem;
+  font-size:0.7rem !important; letter-spacing:0.15em !important;
+}
+.mob-drawer-ig:hover { color:var(--gold) !important; }
+.mob-drawer-lang {
+  display:flex; align-items:center; justify-content:center; gap:1rem;
+  padding:1.2rem; border-top:1px solid var(--border);
+}
+.mob-lang-btn {
+  background:transparent; border:none;
+  font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em;
+  color:var(--muted); cursor:pointer; padding:0.3rem 0.6rem;
+  transition:color 0.2s;
+}
+.mob-lang-btn.active { color:var(--gold2); }
+
+@media(max-width:768px){
+  .mob-menu-btn { display:flex; align-items:center; justify-content:center; }
+  .hamburger { display:none !important; }
+  .mob-drawer { display:flex; }
+  .mob-drawer-overlay { display:block; pointer-events:none; }
+  .mob-drawer-overlay.open { pointer-events:all; }
+}
 </style>
 </head>
 <body>
@@ -552,10 +640,40 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
     </li>
   </ul>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
+  <button class="mob-menu-btn" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+      <line x1="0" y1="1" x2="20" y2="1" stroke="#c8922a" stroke-width="1.5"/>
+      <line x1="0" y1="7" x2="20" y2="7" stroke="#c8922a" stroke-width="1.5"/>
+      <line x1="0" y1="13" x2="20" y2="13" stroke="#c8922a" stroke-width="1.5"/>
+    </svg>
   </button>
 </nav>
+
+<!-- MOBILE DRAWER — completely separate from desktop nav -->
+<div class="mob-drawer" id="mobDrawer">
+  <div class="mob-drawer-header">
+    <img src="https://raw.githubusercontent.com/ilancho94-create/maktub-web/main/logo.png" alt="Maktub" style="height:36px;filter:drop-shadow(0 0 10px rgba(200,146,42,0.3))">
+    <button class="mob-drawer-close" onclick="closeMenu()">✕</button>
+  </div>
+  <nav class="mob-drawer-nav">
+    <a href="#ordering" onclick="closeMenu()" class="mob-drawer-cta">Order Now</a>
+    <a href="#menu" onclick="closeMenu()">Menu</a>
+    <a href="#hours" onclick="closeMenu()">Hours</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="https://www.instagram.com/maktub.arabiantacos" target="_blank" class="mob-drawer-ig">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      Instagram · @maktub.arabiantacos
+    </a>
+  </nav>
+  <div class="mob-drawer-lang">
+    <button onclick="setLang('en');closeMenu()" id="mob-lang-en" class="mob-lang-btn active">EN</button>
+    <span style="color:rgba(200,146,42,0.3);font-size:0.8rem">|</span>
+    <button onclick="setLang('es');closeMenu()" id="mob-lang-es" class="mob-lang-btn">ES</button>
+  </div>
+</div>
+<div class="mob-drawer-overlay" id="mobOverlay" onclick="closeMenu()"></div>
 
 <!-- HERO -->
 <section id="hero" class="pattern-bg">
@@ -1049,6 +1167,11 @@ function setLang(lang){
   renderMenu();
   renderHours();
   renderDelivery();
+  // sync mobile lang buttons
+  const mel = document.getElementById('mob-lang-'+lang);
+  const other = document.getElementById('mob-lang-'+(lang==='en'?'es':'en'));
+  if(mel){ mel.classList.add('active'); }
+  if(other){ other.classList.remove('active'); }
 }
 
 // ── LOAD DATA FROM SUPABASE ──
@@ -1660,34 +1783,26 @@ function showToast(msg, isError=false){
   toastTimer=setTimeout(()=>el.classList.remove('show'),3500);
 }
 
-// ── NAV ──
+// ── NAV MOBILE DRAWER ──
 function toggleMenu(){
-  const links = document.getElementById('navLinks');
-  const ham   = document.getElementById('hamburger');
-  const isOpen = links.classList.contains('open');
+  const drawer  = document.getElementById('mobDrawer');
+  const overlay = document.getElementById('mobOverlay');
+  const isOpen  = drawer.classList.contains('open');
   if(isOpen){
-    links.classList.remove('open');
-    ham.classList.remove('open');
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
     document.body.style.overflow = '';
-    links.style.display = '';
   } else {
-    links.classList.add('open');
-    ham.classList.add('open');
+    drawer.classList.add('open');
+    overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-    links.style.display = 'flex';
   }
 }
 function closeMenu(){
-  const links = document.getElementById('navLinks');
-  const ham   = document.getElementById('hamburger');
-  links.classList.remove('open');
-  ham.classList.remove('open');
+  document.getElementById('mobDrawer').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  links.style.display = '';
 }
-document.querySelectorAll('#navLinks a').forEach(a=>{
-  a.addEventListener('click', closeMenu);
-});
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
 });
