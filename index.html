@@ -426,9 +426,9 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
     </li>
     <li><a href="#ordering" class="nav-order-btn" data-i18n="nav_order_btn">Ordenar Ahora</a></li>
     <li class="lang-toggle">
-      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
       <div class="lang-divider"></div>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
     </li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -785,32 +785,75 @@ let siteData = {
   ],
   menu: [
     {
-      id:'cat1', name:'Tacos Árabes', name_en:'Arabian Tacos',
+      id:'cat1', name:'Dips & Finger Feast', name_en:'Dips & Finger Feast',
       items:[
-        {id:'i1', name:'Taco Árabe Clásico', name_en:'Classic Arabian Taco', price:'$3.99', desc:'Carne al pastor estilo árabe, cebolla, cilantro, salsa verde', desc_en:'Arabian-style pastor meat, onion, cilantro, green sauce', tag:'bestseller', img:''},
-        {id:'i2', name:'Taco de Kofta',      name_en:'Kofta Taco',           price:'$4.50', desc:'Kofta de res y cordero, tzatziki, lechuga, jitomate',        desc_en:'Beef and lamb kofta, tzatziki, lettuce, tomato',           tag:'',          img:''},
-        {id:'i3', name:'Taco de Shawarma',   name_en:'Shawarma Taco',        price:'$4.25', desc:'Shawarma de pollo, hummus, pepino, salsa tahini',            desc_en:'Chicken shawarma, hummus, cucumber, tahini sauce',         tag:'bestseller', img:''},
+        {id:'i1',  name:'Falafel Bites (3pc)',      name_en:'Falafel Bites (3pc)',      price:'$6.99',  desc:'Garbanzos y fava beans crujientes. Con ensalada fresca y salsa tahini casera.',                                   desc_en:'Crispy ground chickpeas and fava beans. Served with fresh salad and homemade tahini sauce.',                  tag:'bestseller', img:''},
+        {id:'i1b', name:'Falafel Bites (6pc)',      name_en:'Falafel Bites (6pc)',      price:'$13.99', desc:'Garbanzos y fava beans crujientes. Con ensalada fresca y salsa tahini casera.',                                   desc_en:'Crispy ground chickpeas and fava beans. Served with fresh salad and homemade tahini sauce.',                  tag:'vegan',      img:''},
+        {id:'i2',  name:'Arabian Lentil Soup',      name_en:'Arabian Lentil Soup',      price:'$4.00',  desc:'Lentejas calientes con papas y espinacas mezcladas con especias árabes.',                                        desc_en:'Warm lentils, potatoes, and spinach with a blend of Arabian spices.',                                         tag:'vegan',      img:''},
+        {id:'i3',  name:'Arabian Rice',             name_en:'Arabian Rice',             price:'$4.00',  desc:'Arroz libanés con fideos tostados y almendras mixtas tostadas.',                                                  desc_en:'Lebanese rice with toasted vermicelli and mixed toasted almonds.',                                            tag:'',           img:''},
+        {id:'i4',  name:'Tiropitas (4pc)',          name_en:'Tiropitas (4pc)',           price:'$7.99',  desc:'Masa frita rellena de queso feta, espinacas o carne molida. Con hummus picante.',                                desc_en:'Fried filled dough with feta cheese, spinach or ground beef. Served with spicy hummus.',                      tag:'',           img:''},
+        {id:'i5',  name:'Dolmas (Grape Leaves) 5pc',name_en:'Dolmas (Grape Leaves) 5pc',price:'$13.50', desc:'Hojas de uva rellenas de cordero, arroz y hierbas aromáticas. Con tzatziki cremoso.',                            desc_en:'Grape leaves stuffed with lamb, rice and aromatic herbs. Served with creamy tzatziki.',                       tag:'',           img:''},
+        {id:'i5b', name:'Dolmas (1pc)',             name_en:'Dolmas (1pc)',             price:'$2.99',  desc:'Hoja de uva rellena de cordero, arroz y hierbas. Con tzatziki.',                                                 desc_en:'Grape leaf stuffed with lamb, rice and herbs. With tzatziki.',                                               tag:'',           img:''},
+        {id:'i6',  name:'Manoushe',                 name_en:'Manoushe',                 price:'$4.99',  desc:'Pan pita con aceite de oliva, za\'atar y mezcla de quesos. Add pollo/res +$3.50, Add verduras +$2.50.',           desc_en:'Pita bread with olive oil, za\'atar and a mix of cheeses. Add chicken/beef +$3.50, Add veggies +$2.50.',      tag:'',           img:''},
+        {id:'i7',  name:'Hummus / Spicy Hummus',    name_en:'Hummus / Spicy Hummus',    price:'$12.99', desc:'Dip de garbanzos cremoso con za\'atar y aceite de oliva. Con pan pita.',                                          desc_en:'Creamy chickpea dip topped with za\'atar and olive oil. Served with pita bread.',                             tag:'vegan',      img:''},
+        {id:'i8',  name:'Jocoque / Tzatziki con Hummus', name_en:'Jocoque / Tzatziki w/ Hummus', price:'$14.50', desc:'Dip refrescante de labneh con pepinos y menta, cubierto de za\'atar y aceite. Con pan pita.',           desc_en:'Refreshing labneh dip with cucumbers and mint, topped with za\'atar and olive oil. Served with pita bread.',  tag:'',           img:''},
       ]
     },
     {
-      id:'cat2', name:'Platillos Árabes', name_en:'Arabian Dishes',
+      id:'cat2', name:'House Specialties', name_en:'House Specialties',
       items:[
-        {id:'i4', name:'Hummus Artesanal', name_en:'Artisan Hummus', price:'$7.99', desc:'Hummus de garbanzos con aceite de oliva, pimentón y pita', desc_en:'Chickpea hummus with olive oil, paprika and pita', tag:'vegan', img:''},
-        {id:'i5', name:'Falafel Plate',    name_en:'Falafel Plate',  price:'$9.99', desc:'6 piezas de falafel con tzatziki y ensalada árabe',       desc_en:'6 falafel pieces with tzatziki and Arabian salad',   tag:'vegan', img:''},
+        {id:'i9',  name:'Shawarma Cheese Steak o Chicken Philly', name_en:'Shawarma Cheese Steak or Chicken Philly', price:'$12.95', desc:'Sub con mezcla de quesos, salsa de ajo, mayonesa, lechuga fresca, tomate, cebolla, cilantro y salsa de cilantro.', desc_en:'Sub with mix of cheeses, garlic sauce, mayonnaise, fresh lettuce, tomato, onions, cilantro and coriander sauce.', tag:'bestseller', img:''},
+        {id:'i10', name:'Loaded Cheesy Fries o Pita Chips',       name_en:'Loaded Cheesy Fries or Pita Chips',       price:'$11.95', desc:'Papas sazonadas al horno con mezcla de quesos derretidos y tu elección de proteína: pollo o res.',                   desc_en:'House-seasoned fries with a mix of melted cheeses and your choice of protein: chicken or beef.',               tag:'',           img:''},
+        {id:'i11', name:'Platters',                               name_en:'Platters',                                price:'$11.95', desc:'Tu elección de pollo o res + arroz árabe + ensalada.',                                                               desc_en:'Choice of beef or chicken + Arabian rice + salad.',                                                             tag:'',           img:''},
+        {id:'i12', name:'Maktub Bowl',                            name_en:'Maktub Bowl',                             price:'$19.50', desc:'Arroz árabe, ensalada fresca, 2 falafel, tzatziki, hummus y tu elección de proteína: pollo, res o cordero.',        desc_en:'Arabian rice, fresh salad, 2 pc falafel, tzatziki, hummus and your choice of protein: chicken, beef or lamb.', tag:'bestseller', img:''},
+        {id:'i13', name:'Maktub Sampler',                         name_en:'Maktub Sampler',                          price:'$27.90', desc:'Arroz árabe, ensalada mediterránea, hummus, tzatziki, 3 hojas de uva, 3 falafel, sopa de lentejas caliente y pan pita. Elección de proteína: pollo, res o cordero.', desc_en:'Arabian rice, Mediterranean salad, hummus, tzatziki, 3 pc grape leaves, 3 pc falafel, warm lentil soup and pita bread. Choice of protein: chicken, beef or lamb.', tag:'', img:''},
       ]
     },
     {
-      id:'cat3', name:'Bebidas', name_en:'Drinks',
+      id:'cat3', name:'Tacos / Wraps', name_en:'Tacos / Wraps',
       items:[
-        {id:'i6', name:'Agua de Tamarindo', name_en:'Tamarind Water', price:'$2.99', desc:'Agua fresca de tamarindo natural', desc_en:'Fresh natural tamarind water', tag:'', img:''},
-        {id:'i7', name:'Té Árabe',          name_en:'Arabian Tea',    price:'$3.50', desc:'Té negro con cardamomo y menta',  desc_en:'Black tea with cardamom and mint', tag:'', img:''},
+        {id:'i14', name:'Gyro Taco',          name_en:'Gyro Taco',          price:'$16.95', desc:'Cordero delicioso con lechuga fresca, tomate, cebolla roja y tzatziki.',                                                    desc_en:'Delicious lamb with fresh lettuce, tomato, red onion and tzatziki.',                                          tag:'bestseller', img:''},
+        {id:'i15', name:'Chicken Shawarma',   name_en:'Chicken Shawarma',   price:'$15.95', desc:'Pollo marinado con salsa de ajo, lechuga fresca, encurtidos árabes, perejil y papas (dentro del taco).',                   desc_en:'Marinated chicken with garlic sauce, fresh lettuce, Arabian pickles, parsley and fries (inside the taco).',  tag:'bestseller', img:''},
+        {id:'i16', name:'Beef Shawarma',      name_en:'Beef Shawarma',      price:'$15.95', desc:'Res marinada con salsa tahini, tomate fresco, perejil, encurtidos árabes y papas (dentro del taco).',                      desc_en:'Marinated beef with tahini sauce, fresh tomato, parsley, Arabian pickles and fries (inside the taco).',      tag:'',           img:''},
+        {id:'i17', name:'Kafta',              name_en:'Kafta',              price:'$15.95', desc:'Kebab de res delicioso con hummus y cebollas flambeadas (cebolla, perejil y sumac).',                                       desc_en:'Delicious beef kebab with hummus and flamed onions (onion, parsley and sumac).',                              tag:'',           img:''},
+        {id:'i18', name:'Mediterranean Taco', name_en:'Mediterranean Taco', price:'$15.95', desc:'Res marinada con lechuga fresca, tomate, perejil, cebolla morada deliciosa, queso feta y salsa tahini.',                   desc_en:'Marinated beef with fresh lettuce, tomato, parsley, delicious onion jam, feta cheese and tahini sauce.',     tag:'',           img:''},
+        {id:'i19', name:'Falafel Taco',       name_en:'Falafel Taco',       price:'$14.99', desc:'Garbanzos y fava balls crujientes con tomate fresco, perejil, rábano, menta, encurtidos árabes, nabos y salsa tahini.',    desc_en:'Crispy ground chickpea and fava bean balls with fresh tomato, parsley, radish, mint, Arabian pickles and turnips with tahini sauce.', tag:'vegan', img:''},
+      ]
+    },
+    {
+      id:'cat4', name:'Salads - Happy Greens', name_en:'Salads - Happy Greens',
+      items:[
+        {id:'i20', name:'Mediterranean',        name_en:'Mediterranean',        price:'$8.99',  desc:'Lechuga fresca, tomate, pepino, cebolla roja, aceitunas mediterráneas, garbanzo y queso feta con aderezo casero.',  desc_en:'Fresh lettuce, tomato, cucumber, red onion, Mediterranean olives, chickpeas and feta cheese with a homemade dressing.', tag:'vegan', img:''},
+        {id:'i21', name:'Fattoush - Crunchy Crunch', name_en:'Fattoush - Crunchy Crunch', price:'$8.99', desc:'Lechuga fresca, tomate, pepino, rábano, perejil, menta y pan pita fresco con aderezo de granada y sumac.', desc_en:'Fresh lettuce, tomato, cucumber, radish, parsley, mint and fresh pita chips with a pomegranate and sumac house dressing.', tag:'vegan', img:''},
+        {id:'i22', name:'Dubai',                name_en:'Dubai',                price:'$8.99',  desc:'Lechuga fresca, espinacas, cebolla roja, tomate, betabel, queso feta, nueces glaseadas y aderezo de miel y balsámico.', desc_en:'Fresh lettuce, spinach, red onion, tomato, beetroot, feta cheese, glazed pecans with honey balsamic house dressing.', tag:'vegan', img:''},
+      ]
+    },
+    {
+      id:'cat5', name:'Dessert', name_en:'Dessert',
+      items:[
+        {id:'i23', name:'Baklava',          name_en:'Baklava',          price:'$3.00',  desc:'Baklava árabe tradicional.',                  desc_en:'Traditional Arabian baklava.',             tag:'', img:''},
+        {id:'i24', name:'Ma\'amoul',        name_en:'Ma\'amoul',        price:'$4.00',  desc:'Galletas árabes rellenas de dátiles.',        desc_en:'Arabian date-filled cookies.',             tag:'', img:''},
+        {id:'i25', name:'Cheesecake Baklava',name_en:'Cheesecake Baklava',price:'$4.00', desc:'Fusion de cheesecake con baklava árabe.',    desc_en:'Cheesecake fusion with Arabian baklava.',  tag:'', img:''},
+        {id:'i26', name:'Baklava Box',      name_en:'Baklava Box',      price:'$13.50', desc:'Caja surtida de baklava árabe.',              desc_en:'Assorted Arabian baklava box.',            tag:'', img:''},
+      ]
+    },
+    {
+      id:'cat6', name:'Drinks', name_en:'Drinks',
+      items:[
+        {id:'i27', name:'Mint Smash',          name_en:'Mint Smash',          price:'$3.50', desc:'Bebida refrescante de menta.',        desc_en:'Refreshing mint drink.',           tag:'', img:''},
+        {id:'i28', name:'Cucumber Lemonade',   name_en:'Cucumber Lemonade',   price:'$3.50', desc:'Limonada fresca con pepino.',         desc_en:'Fresh cucumber lemonade.',         tag:'', img:''},
+        {id:'i29', name:'Rose Lemonade',       name_en:'Rose Lemonade',       price:'$3.50', desc:'Limonada con toque de rosas.',        desc_en:'Lemonade with a hint of rose.',    tag:'', img:''},
+        {id:'i30', name:'Sodas / Lipton / Arizona', name_en:'Sodas / Lipton / Arizona', price:'$2.50', desc:'Refrescos y bebidas frías.', desc_en:'Sodas and cold drinks.',          tag:'', img:''},
+        {id:'i31', name:'Topo Chico (20 oz)',  name_en:'Topo Chico (20 oz)',  price:'$3.50', desc:'Agua mineral Topo Chico.',            desc_en:'Topo Chico sparkling water.',      tag:'', img:''},
+        {id:'i32', name:'Water',               name_en:'Water',               price:'$2.00', desc:'Agua embotellada.',                   desc_en:'Bottled water.',                   tag:'', img:''},
+        {id:'i33', name:'Fresh Tea',           name_en:'Fresh Tea',           price:'$2.50', desc:'Té fresco del día.',                  desc_en:'Fresh brewed tea.',                tag:'', img:''},
       ]
     }
   ],
   delivery: [
-    {id:'d1', name:'DoorDash',  emoji:'🔴', color:'#FF3008', url:'https://doordash.com', active:true},
-    {id:'d2', name:'Uber Eats', emoji:'🟢', color:'#06C167', url:'https://ubereats.com', active:true},
-    {id:'d3', name:'Grubhub',   emoji:'🟠', color:'#F63440', url:'https://grubhub.com',  active:true},
+    {id:'d1', name:'DoorDash',  logoType:'doordash', url:'https://doordash.com', active:true},
+    {id:'d2', name:'Uber Eats', logoType:'ubereats',  url:'https://ubereats.com', active:true},
+    {id:'d3', name:'Grubhub',   logoType:'grubhub',  url:'https://grubhub.com',  active:true},
   ],
   gallery: [
     {id:'g1', url:'', caption:'Taco Árabe'},
@@ -821,7 +864,7 @@ let siteData = {
   ]
 };
 
-let currentLang = 'es';
+let currentLang = 'en';
 
 // ── i18n ──
 const i18n = {
@@ -1009,6 +1052,28 @@ function renderMenu(){
   });
 }
 
+// ── DELIVERY LOGOS SVG ──
+const deliveryLogos = {
+  doordash: `<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 16C0 7.163 7.163 0 16 0h88c8.837 0 16 7.163 16 16s-7.163 16-16 16H16C7.163 32 0 24.837 0 16z" fill="#FF3008"/>
+    <text x="60" y="21" font-family="Arial" font-weight="bold" font-size="13" fill="white" text-anchor="middle">DoorDash</text>
+  </svg>`,
+  ubereats: `<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 16C0 7.163 7.163 0 16 0h88c8.837 0 16 7.163 16 16s-7.163 16-16 16H16C7.163 32 0 24.837 0 16z" fill="#000000"/>
+    <text x="60" y="21" font-family="Arial" font-weight="bold" font-size="12" fill="#06C167" text-anchor="middle">Uber Eats</text>
+  </svg>`,
+  grubhub: `<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 16C0 7.163 7.163 0 16 0h88c8.837 0 16 7.163 16 16s-7.163 16-16 16H16C7.163 32 0 24.837 0 16z" fill="#F63440"/>
+    <text x="60" y="21" font-family="Arial" font-weight="bold" font-size="13" fill="white" text-anchor="middle">Grubhub</text>
+  </svg>`,
+};
+
+function getDeliveryLogoSvg(p){
+  // Use logoType if set, otherwise fallback to name-based
+  const key = p.logoType || p.name.toLowerCase().replace(/\s/g,'').replace('ubereats','ubereats').replace('doordash','doordash').replace('grubhub','grubhub');
+  return deliveryLogos[key] || `<span style="font-size:2rem">${p.emoji||'🍔'}</span>`;
+}
+
 // ── DELIVERY RENDER ──
 function renderDelivery(){
   const el = document.getElementById('deliveryPlatforms');
@@ -1017,9 +1082,8 @@ function renderDelivery(){
   siteData.delivery.filter(p=>p.active).forEach(p=>{
     el.innerHTML+=`
       <a href="${p.url}" target="_blank" class="delivery-card">
-        <div class="delivery-logo" style="color:${p.color};font-size:2rem">${p.emoji}</div>
-        <div class="delivery-name">${p.name}</div>
-        <div class="delivery-cta">${t('order_on')} ${p.name}</div>
+        <div class="delivery-logo">${getDeliveryLogoSvg(p)}</div>
+        <div class="delivery-cta">Order on ${p.name}</div>
       </a>`;
   });
 }
