@@ -629,6 +629,167 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
   .mob-drawer-overlay { display:block; pointer-events:none; }
   .mob-drawer-overlay.open { pointer-events:all; }
 }
+
+/* ══ CAMEL HERO SCENE ══════════════════════════════ */
+.hero-camel-scene {
+  position:absolute; bottom:0; left:0; right:0;
+  height:140px; pointer-events:none; z-index:3;
+  overflow:hidden;
+}
+.hero-dunes {
+  position:absolute; bottom:0; left:0; right:0;
+  width:100%; height:100%;
+}
+.hero-camel {
+  position:absolute; bottom:14px; left:-260px;
+  width:200px; height:auto;
+  animation: camelWalk 22s linear infinite;
+  filter:drop-shadow(0 4px 12px rgba(200,146,42,0.3));
+}
+@keyframes camelWalk {
+  0%   { left:-220px; }
+  100% { left:110%; }
+}
+/* Leg walk animation */
+.hero-camel .camel-leg-fl { transform-origin: 115px 105px; animation: legF 0.6s ease-in-out infinite alternate; }
+.hero-camel .camel-leg-fr { transform-origin: 130px 105px; animation: legF 0.6s ease-in-out infinite alternate-reverse; }
+.hero-camel .camel-leg-bl { transform-origin: 78px 105px; animation: legB 0.6s ease-in-out infinite alternate-reverse; }
+.hero-camel .camel-leg-br { transform-origin: 90px 106px; animation: legB 0.6s ease-in-out infinite alternate; }
+@keyframes legF { from { rotate:-8deg; } to { rotate:8deg; } }
+@keyframes legB { from { rotate:-6deg; } to { rotate:6deg; } }
+
+.hero-scene-stars {
+  position:absolute; inset:0; pointer-events:none;
+}
+.hero-scene-stars span {
+  position:absolute; color:var(--gold); font-size:0.5rem; opacity:0;
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+@keyframes starTwinkle { 0%,100%{opacity:0} 50%{opacity:0.7} }
+
+/* ══ MENU CARD ZOOM ON HOVER ══════════════════════════ */
+.menu-card { overflow:hidden; }
+.menu-card-img {
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.menu-card:hover .menu-card-img {
+  transform: scale(1.06);
+}
+.menu-card:hover .menu-card-img img {
+  transform: scale(1.08);
+}
+.menu-card {
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.menu-card:hover {
+  background: #141108;
+  box-shadow: inset 0 0 0 1px rgba(200,146,42,0.25);
+}
+.menu-card-name { transition: color 0.3s; }
+.menu-card:hover .menu-card-name { color: var(--gold2); }
+
+/* ══ FOOD PHOTO CARDS (Fares-style) ══════════════════ */
+.food-showcase {
+  padding: 5rem 2rem;
+  background: var(--black);
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+.food-showcase-inner { max-width:1200px; margin:0 auto; }
+.food-showcase-header { text-align:center; margin-bottom:3rem; }
+.food-photos-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+}
+.food-photos-strip::-webkit-scrollbar { display:none; }
+.food-photos-strip.dragging { cursor:grabbing; }
+.food-photo-card {
+  flex-shrink:0;
+  scroll-snap-align: start;
+  width: 280px; height: 360px;
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+.food-photo-card img {
+  width:100%; height:100%; object-fit:cover;
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  display:block;
+}
+.food-photo-card:hover img { transform: scale(1.08); }
+.food-photo-card-overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(transparent 40%, rgba(8,7,5,0.85) 100%);
+  display:flex; flex-direction:column;
+  justify-content:flex-end; padding:1.5rem;
+  opacity:0; transition:opacity 0.3s;
+}
+.food-photo-card:hover .food-photo-card-overlay { opacity:1; }
+.food-photo-card-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem; color:#fff; margin-bottom:0.3rem;
+}
+.food-photo-card-price {
+  font-family:'Cinzel',serif; font-size:0.85rem; color:var(--gold);
+}
+.food-photo-placeholder {
+  width:100%; height:100%;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:0.5rem; color:var(--gold3);
+  font-size:3rem;
+}
+.food-photo-placeholder span {
+  font-size:0.6rem; letter-spacing:0.25em;
+  text-transform:uppercase; color:var(--gold3);
+}
+
+/* ══ ENHANCED REVEAL ANIMATIONS ══════════════════════ */
+.reveal-left { opacity:0; transform:translateX(-30px); transition:opacity 0.85s ease, transform 0.85s ease; }
+.reveal-left.visible { opacity:1; transform:translateX(0); }
+.reveal-right { opacity:0; transform:translateX(30px); transition:opacity 0.85s ease, transform 0.85s ease; }
+.reveal-right.visible { opacity:1; transform:translateX(0); }
+.reveal-scale { opacity:0; transform:scale(0.95); transition:opacity 0.85s ease, transform 0.85s ease; }
+.reveal-scale.visible { opacity:1; transform:scale(1); }
+
+/* ══ FLOATING PARTICLES IN HERO ══════════════════════ */
+.hero-particles { position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+.hero-particle {
+  position:absolute; width:2px; height:2px;
+  background:var(--gold); border-radius:50%;
+  animation: particleFloat linear infinite;
+  opacity:0;
+}
+@keyframes particleFloat {
+  0%   { transform:translateY(100vh) scale(0); opacity:0; }
+  10%  { opacity:0.6; }
+  90%  { opacity:0.3; }
+  100% { transform:translateY(-10vh) scale(1); opacity:0; }
+}
+
+/* ══ HOURS ROW HIGHLIGHT TODAY ══════════════════════ */
+.hours-row.today {
+  background: rgba(200,146,42,0.07) !important;
+  border-left: 3px solid var(--gold);
+  padding-left: calc(2rem - 3px);
+}
+.hours-row.today .hours-day { color: var(--gold2); }
+
+/* ══ MOBILE food strip ══════════════════════════════ */
+@media(max-width:768px){
+  .hero-camel { width:140px; bottom:10px; }
+  .hero-camel-scene { height:100px; }
+  .food-photo-card { width:220px; height:280px; }
+  .food-showcase { padding:3.5rem 0; }
+  .food-showcase-inner { padding:0; }
+  .food-showcase-header { padding:0 1.5rem; }
+  .food-photos-strip { padding:0 1.5rem; gap:6px; }
+}
 </style>
 </head>
 <body>
@@ -703,6 +864,7 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
   <div class="hero-arc"></div>
   <div class="hero-arc"></div>
   <div class="hero-pattern"></div>
+  <div class="hero-particles" id="heroParticles"></div>
   <div class="hero-content">
     <img id="hero-logo-img" class="hero-logo" src="https://raw.githubusercontent.com/ilancho94-create/maktub-web/main/logo.png" alt="Maktub">
     <p class="hero-tagline" data-i18n="hero_tagline">Where Arabia meets the Valley</p>
@@ -713,12 +875,80 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
     </div>
   </div>
   <div class="hero-scroll-hint" data-i18n="scroll">Scroll</div>
+
+  <!-- CAMEL DUNE SCENE -->
+  <div class="hero-camel-scene">
+    <!-- Dunes -->
+    <svg class="hero-dunes" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 Q180,20 360,70 Q540,120 720,60 Q900,0 1080,65 Q1260,130 1440,75 L1440,120 L0,120 Z" fill="#1a1205" opacity="0.9"/>
+      <path d="M0,95 Q200,50 400,85 Q600,120 800,78 Q1000,36 1200,82 Q1320,108 1440,90 L1440,120 L0,120 Z" fill="#0f0d08" opacity="1"/>
+    </svg>
+    <!-- Camel walking SVG (cartoon style) -->
+    <svg class="hero-camel" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body -->
+      <ellipse cx="100" cy="80" rx="52" ry="30" fill="#c8922a"/>
+      <!-- Neck -->
+      <path d="M125,60 Q138,35 132,18" stroke="#c8922a" stroke-width="18" fill="none" stroke-linecap="round"/>
+      <!-- Head -->
+      <ellipse cx="128" cy="12" rx="16" ry="12" fill="#c8922a"/>
+      <!-- Snout -->
+      <path d="M138,14 Q148,16 146,22 Q144,26 136,24" fill="#b07820"/>
+      <!-- Nostril -->
+      <circle cx="144" cy="19" r="1.5" fill="#7a5010"/>
+      <!-- Eye -->
+      <circle cx="122" cy="9" r="3" fill="#fff"/>
+      <circle cx="123" cy="9" r="2" fill="#2d1a00"/>
+      <circle cx="123.8" cy="8.2" r="0.6" fill="#fff"/>
+      <!-- Eyelashes -->
+      <line x1="120" y1="6" x2="118" y2="4" stroke="#5a3800" stroke-width="0.8"/>
+      <line x1="122" y1="5.5" x2="121" y2="3" stroke="#5a3800" stroke-width="0.8"/>
+      <line x1="124" y1="6" x2="124" y2="3.5" stroke="#5a3800" stroke-width="0.8"/>
+      <!-- Ear -->
+      <ellipse cx="114" cy="4" rx="4" ry="5" fill="#c8922a"/>
+      <ellipse cx="114" cy="4" rx="2" ry="3" fill="#e8b050"/>
+      <!-- Hump -->
+      <path d="M75,50 Q90,25 105,48" fill="#c8922a" stroke="none"/>
+      <path d="M75,50 Q90,28 105,48" fill="#b87820"/>
+      <!-- Decorative saddle blanket -->
+      <path d="M72,72 Q100,58 128,72 Q128,85 100,87 Q72,85 72,72Z" fill="#8b3a00" opacity="0.7"/>
+      <path d="M78,72 Q100,62 122,72 Q122,82 100,84 Q78,82 78,72Z" fill="#c85a00" opacity="0.5"/>
+      <!-- Saddle decoration dots -->
+      <circle cx="90" cy="74" r="2" fill="#e8b84b" opacity="0.8"/>
+      <circle cx="100" cy="71" r="2" fill="#e8b84b" opacity="0.8"/>
+      <circle cx="110" cy="74" r="2" fill="#e8b84b" opacity="0.8"/>
+      <circle cx="95" cy="79" r="1.5" fill="#e8b84b" opacity="0.7"/>
+      <circle cx="105" cy="79" r="1.5" fill="#e8b84b" opacity="0.7"/>
+      <!-- Tail -->
+      <path d="M50,75 Q38,70 35,80 Q33,88 40,90" stroke="#b07820" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M40,90 Q36,95 38,100" stroke="#8a6010" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <!-- Front legs (walking animation) -->
+      <line x1="115" y1="105" x2="110" y2="130" stroke="#b07820" stroke-width="8" stroke-linecap="round" class="camel-leg-fl"/>
+      <line x1="130" y1="105" x2="138" y2="128" stroke="#b07820" stroke-width="8" stroke-linecap="round" class="camel-leg-fr"/>
+      <!-- Back legs -->
+      <line x1="78" y1="105" x2="72" y2="130" stroke="#b07820" stroke-width="8" stroke-linecap="round" class="camel-leg-bl"/>
+      <line x1="90" y1="106" x2="96" y2="129" stroke="#b07820" stroke-width="8" stroke-linecap="round" class="camel-leg-br"/>
+      <!-- Hooves -->
+      <ellipse cx="109" cy="131" rx="5" ry="3" fill="#5a3800" class="camel-leg-fl"/>
+      <ellipse cx="139" cy="129" rx="5" ry="3" fill="#5a3800" class="camel-leg-fr"/>
+      <ellipse cx="71" cy="131" rx="5" ry="3" fill="#5a3800" class="camel-leg-bl"/>
+      <ellipse cx="97" cy="130" rx="5" ry="3" fill="#5a3800" class="camel-leg-br"/>
+      <!-- Rein -->
+      <path d="M138,20 Q145,30 142,40" stroke="#5a3800" stroke-width="1.5" fill="none"/>
+    </svg>
+    <!-- Stars in scene -->
+    <div class="hero-scene-stars">
+      <span style="left:15%;top:30%;animation-delay:0s">✦</span>
+      <span style="left:25%;top:15%;animation-delay:0.5s">✦</span>
+      <span style="left:70%;top:20%;animation-delay:1s">✦</span>
+      <span style="left:82%;top:35%;animation-delay:1.5s">✦</span>
+    </div>
+  </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about" class="pattern-bg">
   <div class="about-inner">
-    <div class="about-text reveal">
+    <div class="about-text reveal-left">
       <span class="section-label" data-i18n="about_label">Nuestra Historia</span>
       <h2 class="section-title" data-i18n="about_title">Sabores que <em>trascienden</em> fronteras</h2>
       <div class="gold-divider"><span class="gold-divider-icon">✦</span></div>
@@ -730,7 +960,7 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
         <span class="badge" data-i18n="badge3">McAllen, TX</span>
       </div>
     </div>
-    <div class="about-visual reveal">
+    <div class="about-visual reveal-right">
       <div class="about-logo-display">
         <img id="about-logo-img" src="https://raw.githubusercontent.com/ilancho94-create/maktub-web/main/logo.png" alt="Maktub Logo">
       </div>
@@ -748,6 +978,19 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
     </div>
     <div class="menu-cats" id="menuCats"></div>
     <div id="menuPanels"></div>
+  </div>
+</section>
+
+<!-- FOOD SHOWCASE -->
+<section class="food-showcase reveal">
+  <div class="food-showcase-inner">
+    <div class="food-showcase-header">
+      <span class="section-label">From Our Kitchen</span>
+      <h2 class="section-title">Crafted with <em>Passion</em></h2>
+    </div>
+    <div class="food-photos-strip" id="foodStrip">
+      <!-- Cards rendered by JS from menu data -->
+    </div>
   </div>
 </section>
 
@@ -774,7 +1017,7 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 
 <!-- HOURS -->
 <section id="hours">
-  <div class="hours-inner reveal">
+  <div class="hours-inner reveal-scale">
     <span class="section-label" data-i18n="hours_label">Horarios</span>
     <h2 class="section-title" data-i18n="hours_title">Visítanos</h2>
     <div class="gold-divider"><span class="gold-divider-icon">◆</span></div>
@@ -1233,6 +1476,7 @@ function applyData(){
   renderDelivery();
   renderGallery();
   renderHours();
+  renderFoodShowcase();
 }
 
 // ── SAVE ALL ──
