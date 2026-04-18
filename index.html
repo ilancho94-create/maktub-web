@@ -2104,7 +2104,7 @@ window.addEventListener('scroll',()=>{
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
 },{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el=>observer.observe(el));
 
 // ── FOOTER EASTER EGG ──
 document.getElementById('footerCopy').addEventListener('click', handleFooterClick);
