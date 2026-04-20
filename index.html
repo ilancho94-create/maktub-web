@@ -669,26 +669,88 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
 }
 @keyframes starTwinkle { 0%,100%{opacity:0} 50%{opacity:0.7} }
 
-/* ══ MENU CARD ZOOM ON HOVER ══════════════════════════ */
-.menu-card { overflow:hidden; }
-.menu-card-img {
-  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+/* ══ MENU CARDS V2 — Naf Naf style ══════════════════ */
+.menu-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  padding: 1px;
 }
-.menu-card:hover .menu-card-img {
-  transform: scale(1.06);
+.menu-card-v2 {
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: background 0.3s;
+  cursor: default;
 }
-.menu-card:hover .menu-card-img img {
+.menu-card-v2:hover { background: #141108; }
+.menu-card-v2-img {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--card);
+  display: flex; align-items: center; justify-content: center;
+}
+.menu-card-v2-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.menu-card-v2:hover .menu-card-v2-img img {
   transform: scale(1.08);
 }
-.menu-card {
-  transition: background 0.3s, box-shadow 0.3s;
+.menu-card-v2-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+  color: var(--gold3);
 }
-.menu-card:hover {
-  background: #141108;
-  box-shadow: inset 0 0 0 1px rgba(200,146,42,0.25);
+.menu-badge {
+  position: absolute; top: 0.7rem; left: 0.7rem;
+  font-size: 0.55rem; letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 0.25rem 0.6rem;
+  font-family: 'Jost', sans-serif; font-weight: 500;
 }
-.menu-card-name { transition: color 0.3s; }
-.menu-card:hover .menu-card-name { color: var(--gold2); }
+.menu-badge.bestseller { background: rgba(200,146,42,0.9); color: var(--black); }
+.menu-badge.vegan { background: rgba(80,160,80,0.9); color: #fff; }
+.menu-card-v2-body {
+  padding: 1rem 1.1rem 1.2rem;
+  display: flex; flex-direction: column; gap: 0.4rem;
+  flex: 1;
+}
+.menu-card-v2-top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 0.5rem;
+}
+.menu-card-v2-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; color: #fff; line-height: 1.3;
+  flex: 1;
+}
+.menu-card-v2-price {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem; color: var(--gold);
+  font-weight: 600; white-space: nowrap; flex-shrink: 0;
+}
+.menu-card-v2-desc {
+  font-size: 0.75rem; color: var(--muted);
+  line-height: 1.55; margin: 0;
+}
+
+/* Mobile */
+@media(max-width:768px){
+  .menu-grid-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+  }
+  .menu-card-v2-body { padding: 0.7rem 0.8rem 0.9rem; }
+  .menu-card-v2-name { font-size: 0.88rem; }
+  .menu-card-v2-price { font-size: 0.75rem; }
+  .menu-card-v2-desc { font-size: 0.68rem; line-height: 1.45; }
+  .menu-badge { font-size: 0.48rem; padding: 0.2rem 0.45rem; }
+}
 
 /* ══ FOOD PHOTO CARDS (Fares-style) ══════════════════ */
 .food-showcase {
@@ -1535,56 +1597,54 @@ function renderMenu(){
   if(!cats||!panels) return;
   cats.innerHTML=''; panels.innerHTML='';
   siteData.menu.forEach((cat,ci)=>{
-    // Desktop tab button
+    // Tab button
     const btn = document.createElement('button');
     btn.className='menu-cat'+(ci===0?' active':'');
     btn.textContent = currentLang==='en' ? cat.name_en : cat.name;
     btn.onclick=()=>{
       document.querySelectorAll('.menu-cat').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      // desktop: show/hide panels
       document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('desktop-active'));
       document.getElementById('panel-'+cat.id).classList.add('desktop-active');
     };
     cats.appendChild(btn);
 
-    // Panel — all visible in mobile accordion, only active visible on desktop
+    // Panel
     const panel = document.createElement('div');
     panel.className='menu-panel'+(ci===0?' desktop-active':'');
     panel.id='panel-'+cat.id;
 
-    // Accordion header (visible only on mobile via CSS)
+    // Mobile accordion header
     const mobHeader = document.createElement('div');
     mobHeader.className='mob-cat-header';
     const catName = currentLang==='en' ? cat.name_en : cat.name;
     mobHeader.innerHTML=`<span class="mob-cat-title">${catName}</span><span class="mob-cat-arrow">▾</span>`;
     mobHeader.onclick=()=>{ panel.classList.toggle('mob-open'); };
     panel.appendChild(mobHeader);
-
-    // Start first category open on mobile
     if(ci===0) panel.classList.add('mob-open');
 
+    // Cards grid
     const grid = document.createElement('div');
-    grid.className='menu-grid';
+    grid.className='menu-grid-cards';
     cat.items.forEach(item=>{
       const name = currentLang==='en' ? item.name_en : item.name;
       const desc = currentLang==='en' ? item.desc_en : item.desc;
       const hasImg = item.img && item.img.trim()!=='';
       grid.innerHTML+=`
-        <div class="menu-card">
-          <div class="menu-card-img" ${hasImg?`onclick="openLightbox('${item.img}')" style="cursor:pointer"`:'style="cursor:default"'}>
+        <div class="menu-card-v2">
+          <div class="menu-card-v2-img">
             ${hasImg
-              ? `<img src="${item.img}" alt="${name}"><div class="img-overlay">Ver foto</div>`
-              : `<span>🌯</span>`}
+              ? `<img src="${item.img}" alt="${name}">`
+              : `<div class="menu-card-v2-placeholder"><span>🌯</span></div>`}
+            ${item.tag==='bestseller'?`<span class="menu-badge bestseller">★ Best Seller</span>`:''}
+            ${item.tag==='vegan'?`<span class="menu-badge vegan">🌱 Vegan</span>`:''}
           </div>
-          <div class="menu-card-body">
-            <div class="menu-card-name">
-              <span>${name}</span>
-              <span class="menu-card-price">${item.price}</span>
+          <div class="menu-card-v2-body">
+            <div class="menu-card-v2-top">
+              <span class="menu-card-v2-name">${name}</span>
+              <span class="menu-card-v2-price">${item.price}</span>
             </div>
-            <p class="menu-card-desc">${desc}</p>
-            ${item.tag==='bestseller'?`<span class="menu-card-tag tag-bestseller">★ Best Seller</span>`:''}
-            ${item.tag==='vegan'?`<span class="menu-card-tag tag-vegan">🌱 Vegan</span>`:''}
+            <p class="menu-card-v2-desc">${desc}</p>
           </div>
         </div>`;
     });
