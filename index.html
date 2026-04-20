@@ -407,8 +407,8 @@ footer { background:var(--black); border-top:1px solid var(--border); padding:4r
   /* Accordion: hide desktop tabs, show all panels */
   .menu-cats { display:none !important; }
   .menu-panel { display:block !important; }
-  .menu-panel .menu-grid { display:none !important; }
-  .menu-panel.mob-open .menu-grid { display:block !important; }
+  .menu-panel .menu-grid-cards { display:none !important; }
+.menu-panel.mob-open .menu-grid-cards { display:block !important; }
   /* Accordion header */
   .mob-cat-header {
     display:flex !important; align-items:center; justify-content:space-between;
@@ -1552,7 +1552,7 @@ function applyData(){
   renderDelivery();
   renderGallery();
   renderHours();
-  renderFoodShowcase();
+  
 }
 
 // ── SAVE ALL ──
